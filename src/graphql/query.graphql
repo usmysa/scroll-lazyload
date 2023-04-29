@@ -1,0 +1,10 @@
+query pokemons($offset: Int) {
+  pokemons(offset: $offset, limit: 15) {
+    nextOffset
+    results {
+      id
+      name
+      image
+    }
+  }
+}

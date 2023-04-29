@@ -1,0 +1,129 @@
+$layout-margin-top: 40px;
+$card-size: 180px;
+
+:root {
+  --overlay-color: #fff;
+  --name-color: #fff;
+}
+
+html {
+  background: #f7971e; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #ffd200, #f7971e); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #ffd200,
+    #f7971e
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.container {
+  width: 700px;
+  height: calc(100vh - #{$layout-margin-top});
+  margin: $layout-margin-top auto 0 auto;
+  padding: 32px 32px 0 32px;
+  background-color: #fff;
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.grid {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: $card-size $card-size $card-size;
+  gap: 32px;
+}
+
+.card {
+  position: relative;
+  width: $card-size;
+  height: $card-size;
+  border-radius: 8px;
+  box-shadow: 0px 0px 51px 0px rgba(0, 0, 0, 0.08), 0px 6px 18px 0px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+
+  &.inView {
+    animation: fadeCard 0.3s linear 0.3s forwards;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.overlay {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  animation: blur 0.3s linear 0s forwards;
+
+  .card.isHover & {
+    display: flex;
+  }
+}
+
+.name {
+  opacity: 0;
+  color: var(--name-color);
+  font-size: x-large;
+  font-weight: 700;
+  line-height: 1.2;
+  backdrop-filter: blur(4px);
+  animation: fadeName 0.3s ease-in-out 0.3s forwards;
+}
+
+@keyframes blur {
+  from {
+    background-color: none;
+    opacity: 1;
+    backdrop-filter: blur(0px);
+  }
+
+  to {
+    background-color: var(--overlay-color);
+    opacity: 0.7;
+    backdrop-filter: blur(20px);
+  }
+}
+
+@keyframes fadeCard {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fadeName {
+  from {
+    opacity: 0;
+    text-shadow: none;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 0.8;
+    transform: translateY(0px);
+  }
+}
